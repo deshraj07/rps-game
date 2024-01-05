@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        body{
+            background-color: rgb(78, 238, 227);
+        }
+        .heading{
+            border-radius: 10px;
+            font-size: 40px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        
+            background-color: rgb(223, 231, 230);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+            margin: 0%;
+            color: rgb(11, 11, 11);
+        }
+        .img{
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            width: 200px;
+            border-radius: 50%;
+        }
+        #fl{ margin-top: 50px;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            gap: 40px;
+        }
+        .but:hover{
+            cursor: pointer;
+            background-color: black;
+        }
+        .but{
+            justify-content: center;
+            align-items: center;
+           
+            border-radius: 50%;
+        }
+        .text{
+            justify-content: center;
+            text-align: center;
+
+            font-size: xx-large;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            
+        }
+        .p{
+            justify-content: center;
+            text-align: center;
+
+            color: rgb(11, 11, 11);
+
+        }
+        .cont{
+            justify-content: center;
+            text-align: center;
+
+            display: flex;
+            gap: 70px;
+            margin-top: 30px;
+        }
+        .text1{
+            color: red;
+            margin-top: 30px;
+            display: inline;
+
+            background-color: blue;
+            
+            justify-content: center;
+            align-content: center;
+            text-align: center;
+
+            font-size: 50px;
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+
+        }
+       
+
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 class="heading">welcome and enjoy!</h1>
+    <div id="fl">
+    <button class="but" id="rock"><img class="img"  src="rock.png" alt="rock"></button>
+    <button class="but" id="peaper"><img class="img" src="paper.png" alt="paper"></button>
+    <button class="but" id="scissor"><img class="img" src="scissors.png" alt="scissor"></button>
+</div>
+<div class="cont"> 
+    <div class="text">
+    <p class="p" id="user">0</p>
+    <p class="p">you</p>
+    </div>
+
+    <div class="text">
+    <p class="p" id="comp">0</p>
+    <p class="p">computer </p>
+    </div>
+</div>
+
+    <div class="text1"><p class="p1">play your move</p></div>
+
+
+
+<script>
+let user = 0;
+let computer  = 0;
+let choices = document.querySelectorAll(".but");
+console.log(choices);
+
+const genCompChoice = ()=>{
+
+    const option = ["rock","peaper","scissor"];
+    const ranInd = Math.floor(Math.random()*3);
+    return option[ranInd];
+}
+
+
+const playGame=(userChoise)=>
+{
+    console.log("user choise ",userChoise);
+    const CompChoice = genCompChoice();
+    console.log("computer choise ",CompChoice);
+
+    if(userChoise ===CompChoice)
+    {
+        drawGame();
+    }else{
+        let userWin = true ;
+        if(userChoise === "rock"){
+            userWin = CompChoice ==="peaper"? false:true;
+        }else if(userChoise === "peaper"){
+            userWin = CompChoice ==="scissor"? false:true;
+        }else{
+            
+                userWin = CompChoice ==="rock"? false:true;
+            }
+            showWinner(userWin,userChoise,CompChoice);
+
+    }
+
+}
+
+choices.forEach((but) =>{
+    but.addEventListener("click",()=>{
+        const userChoise = but.getAttribute("id")
+        
+        playGame(userChoise);
+
+
+    })
+
+})
+
+drawGame=()=>{
+    console.log("the game was draw");
+    document.querySelector(".p1").innerText = "The game was draw play again! "
+    document.querySelector(".p1").style.backgroundColor = "black"
+    document.querySelector(".p1").style.color = "white"
+    }
+    const showWinner = (userWin , userChoise,CompChoice)=>{
+        if(userWin === true ){
+            console.log("you win ");
+            document.querySelector(".p1").innerText = `you win your  ${userChoise} beats computer ${CompChoice}`
+            console.log(CompChoice);
+            user++;
+            users =  document.querySelector("#user");
+            users.innerText = user;
+            document.querySelector(".p1").style.backgroundColor = "green"
+            document.querySelector(".p1").style.color = "white"
+    
+        }
+        else{
+            console.log("you lose")
+            document.querySelector(".p1").innerText = `you lose computer  ${CompChoice} beats your  ${userChoise}`
+            computer++;
+            users =  document.querySelector("#comp");
+            users.innerText = computer;
+            document.querySelector(".p1").style.backgroundColor = "red"
+            document.querySelector(".p1").style.color = "white"
+        }
+    }
+
+</script>
+</body>
+</html>
